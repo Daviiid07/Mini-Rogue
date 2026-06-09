@@ -6,11 +6,12 @@ TRAMPA;-1;1;1;1
 TRAMPA;-1;1;2;1
 TRAMPA;-1;2;1;1
 TRAMPA;-1;1;1;1
-ENEMIGO;1
-ENEMIGO;1
-ENEMIGO;2
-ENEMIGO;2
+ENEMIGO;false;1;Soldado Esqueleto;2;1
+ENEMIGO;false;1;Soldado Esqueleto;2;1
+ENEMIGO;false;2;Espectro Oscuro;4;1
+ENEMIGO;false;2;Espectro Oscuro;4;1
+ENEMIGO;true;1;Lord Esqueleto;10;2;2;2
 DESCANSO;1;1;2
 DESCANSO;1;2;1
-EVENTO;2;1;3;1;2;1
-EVENTO;2;1;2;1;2;2
+EVENTO;2;1;3;1;2;1;Soldado Esqueleto;2;1
+EVENTO;2;1;2;1;2;2;Espectro Oscuro;4;1

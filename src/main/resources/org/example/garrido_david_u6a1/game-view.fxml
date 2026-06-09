@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.garrido_david_u6a1.controller.GameController"
+            style="-fx-background-color: #1a1a2e;">
+
+    <!-- PANEL SUPERIOR: STATS PERSONAJE -->
+    <top>
+        <HBox spacing="18" style="-fx-background-color: #16213e; -fx-padding: 8 14 8 14;">
+            <Label fx:id="lblNombre" style="-fx-text-fill: white;   -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            <Label fx:id="lblPV" style="-fx-text-fill: #ff6b6b; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            <Label fx:id="lblPX" style="-fx-text-fill: #ffd700; -fx-font-size: 13px;"/>
+            <Label fx:id="lblOro" style="-fx-text-fill: #ffd700; -fx-font-size: 13px;"/>
+            <Label fx:id="lblArmadura" style="-fx-text-fill: #a8d8ea; -fx-font-size: 13px;"/>
+            <Label fx:id="lblComida" style="-fx-text-fill: #a8e6cf; -fx-font-size: 13px;"/>
+            <Label fx:id="lblNivel" style="-fx-text-fill: #dda0dd; -fx-font-size: 13px;"/>
+            <Label fx:id="lblZona" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;"/>
+        </HBox>
+    </top>
+
+    <!-- CENTRO: GRID + PANEL DERECHO -->
+    <center>
+        <BorderPane>
+
+            <!-- Grid 3×3 de salas -->
+            <center>
+                <GridPane fx:id="gridPane" hgap="8" vgap="8"
+                          style="-fx-background-color: #0f3460; -fx-padding: 12px;"/>
+            </center>
+
+            <!-- Panel lateral derecho -->
+            <right>
+                <VBox spacing="10" prefWidth="250"
+                      style="-fx-background-color: #16213e; -fx-padding: 12px;">
+
+                    <!-- Info carta -->
+                    <Label text="📋 Sala" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+                    <TextArea fx:id="txtInfoSala"
+                              prefHeight="190"
+                              editable="false" wrapText="true"
+                              style="-fx-control-inner-background:#0f3460;
+                                     -fx-text-fill: white; -fx-font-size:12px;"/>
+
+                    <Separator/>
+
+                    <!-- Acciones dinámicas -->
+                    <Label text="⚙ Acciones" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+
+                    <!-- Resolver genérico (Atacar / Resolver trampa / etc) -->
+                    <Button fx:id="btnResolver"
+                            maxWidth="Infinity" visible="false" managed="false"
+                            onAction="#onBtnResolver"
+                            style="-fx-background-color:#e94560; -fx-text-fill:white;
+                                   -fx-font-weight:bold; -fx-background-radius:6;"/>
+
+                    <!-- PROEZA: dos botones independientes, cada uno puede aparecer solo -->
+                    <Button fx:id="btnProezaPX"
+                            maxWidth="Infinity" visible="false" managed="false"
+                            onAction="#onBtnProezaPX"
+                            style="-fx-background-color:#f39c12; -fx-text-fill:white;
+                                   -fx-font-weight:bold; -fx-background-radius:6;"/>
+                    <Button fx:id="btnProezaVida"
+                            maxWidth="Infinity" visible="false" managed="false"
+                            onAction="#onBtnProezaVida"
+                            style="-fx-background-color:#e67e22; -fx-text-fill:white;
+                                   -fx-font-weight:bold; -fx-background-radius:6;"/>
+
+                    <!-- CRÍTICO -->
+                    <HBox spacing="6">
+                        <Button fx:id="btnCriticoSi"
+                                visible="false" managed="false"
+                                onAction="#onBtnCriticoSi"
+                                style="-fx-background-color:#27ae60; -fx-text-fill:white;
+                                       -fx-font-weight:bold; -fx-background-radius:6;"/>
+                        <Button fx:id="btnCriticoNo"
+                                visible="false" managed="false"
+                                onAction="#onBtnCriticoNo"
+                                style="-fx-background-color:#c0392b; -fx-text-fill:white;
+                                       -fx-font-weight:bold; -fx-background-radius:6;"/>
+                    </HBox>
+
+                    <!-- Panel choice (Descanso / Mercader / Tesoro elección) -->
+                    <VBox fx:id="panelChoice" spacing="6"
+                          visible="false" managed="false"
+                          style="-fx-background-color:#0f3460; -fx-padding:8;
+                                 -fx-background-radius:6;">
+                        <Label fx:id="lblChoiceTitulo"
+                               style="-fx-text-fill:#ffd700; -fx-font-weight:bold;"/>
+                        <ChoiceBox fx:id="choiceAccion" maxWidth="Infinity"/>
+                        <ChoiceBox fx:id="choiceOpcion" maxWidth="Infinity"
+                                   visible="false" managed="false"/>
+                        <Button fx:id="btnConfirmar"
+                                maxWidth="Infinity"
+                                onAction="#onBtnConfirmar"
+                                style="-fx-background-color:#8e44ad; -fx-text-fill:white;
+                                       -fx-font-weight:bold; -fx-background-radius:6;"/>
+                    </VBox>
+
+                    <!-- Avanzar zona (aparece al completar zona) -->
+                    <Button fx:id="btnAvanzarZona"
+                            text="Avanzar zona →"
+                            maxWidth="Infinity" visible="false" managed="false"
+                            onAction="#onBtnAvanzarZona"
+                            style="-fx-background-color:#27ae60; -fx-text-fill:white;
+                                   -fx-font-weight:bold; -fx-background-radius:6;"/>
+
+                </VBox>
+            </right>
+
+        </BorderPane>
+    </center>
+
+    <!-- INFERIOR: LOG + MOVIMIENTO -->
+    <bottom>
+        <BorderPane style="-fx-background-color:#0f3460; -fx-padding:8;">
+
+            <center>
+                <TextArea fx:id="txtLog"
+                          prefHeight="130" editable="false" wrapText="true"
+                          style="-fx-control-inner-background:#1a1a2e;
+                                 -fx-text-fill:#a8e6cf;
+                                 -fx-font-family:monospace; -fx-font-size:12px;"/>
+            </center>
+
+            <right>
+                <VBox spacing="8" alignment="CENTER"
+                      style="-fx-padding: 0 0 0 12;">
+                    <Label text="Mover" style="-fx-text-fill:#c0c0c0; -fx-font-size:11px;"/>
+                    <Button fx:id="btnDerecha" text="▶ Derecha"
+                            minWidth="110" onAction="#onBtnDerecha"
+                            style="-fx-background-color:#2980b9; -fx-text-fill:white;
+                                   -fx-font-weight:bold; -fx-background-radius:6;"/>
+                    <Button fx:id="btnAbajo"   text="▼ Abajo"
+                            minWidth="110" onAction="#onBtnAbajo"
+                            style="-fx-background-color:#2980b9; -fx-text-fill:white;
+                                   -fx-font-weight:bold; -fx-background-radius:6;"/>
+                </VBox>
+            </right>
+
+        </BorderPane>
+    </bottom>
+
+</BorderPane>

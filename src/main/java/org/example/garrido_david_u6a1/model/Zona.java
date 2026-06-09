@@ -1,34 +1,29 @@
-package UD5.U5a1;
+package org.example.garrido_david_u6a1.model;
 
-import java.util.Scanner;
+import org.example.garrido_david_u6a1.model.carta.Carta;
 
 public class Zona {
     private Carta[][] salas = new Carta[3][3];
     private int nivel;
     private int numZona;
     private String nombreZona;
+
     private int filaActual;
     private int columnaActual;
+
     private boolean finalizada;
     private boolean jefe;
     private int cartasVisitadas;
 
-    public Zona(int numeroZona, String nombreZona, Carta[][] salas, int nivel){
+    public Zona(int numeroZona, String nombreZona, Carta[][] salas, int nivel) {
         setNumZona(numeroZona);
         setNombreZona(nombreZona);
         setSalas(salas);
         setNivel(nivel);
-        if (getNumZona() == 2){
+
+        if (getNumZona() == 2) {
             setJefe(true);
         }
-    }
-
-    public int getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
     }
 
     public Carta[][] getSalas() {
@@ -37,6 +32,14 @@ public class Zona {
 
     public void setSalas(Carta[][] salas) {
         this.salas = salas;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 
     public int getNumZona() {
@@ -95,55 +98,49 @@ public class Zona {
         this.cartasVisitadas = cartasVisitadas;
     }
 
+    // MOVIMIENTO
     public void moverAbajo() {
-        if (getFilaActual() < getSalas().length - 1) {
-            setFilaActual(getFilaActual() + 1);
-        } else {
-            System.out.println("No puedes moverte más hacia abajo.");
+        if (puedeMoverAbajo()) {
+            filaActual++;
         }
     }
 
     public void moverDerecha() {
-        if (getColumnaActual() < getSalas()[0].length - 1) {
-            setColumnaActual(getColumnaActual() + 1);
-        } else {
-            System.out.println("No puedes moverte más hacia la derecha.");
+        if (puedeMoverDerecha()) {
+            columnaActual++;
         }
     }
 
     public boolean puedeMoverAbajo() {
-        return getFilaActual() < getSalas().length - 1;
+        return filaActual < salas.length - 1;
     }
 
     public boolean puedeMoverDerecha() {
-        return getColumnaActual() < getSalas()[0].length - 1;
+        return columnaActual < salas[0].length - 1;
     }
 
+    // MAPA
     public Carta cartaActual() {
-        return getSalas()[getFilaActual()][getColumnaActual()];
+        return salas[filaActual][columnaActual];
     }
 
-    public String visitarCarta(Personaje p, Scanner sc) {
+    public boolean cartaYaVisitada() {
+        return cartaActual() != null && cartaActual().estaOcupada();
+    }
+
+    public void marcarCartaVisitada() {
         Carta actual = cartaActual();
-        String resultado = "";
-
-        if (!actual.estaOcupada()) {
-            setCartasVisitadas(getCartasVisitadas() + 1);
-            resultado = actual.aplicarCarta(p, sc);
-            comprobarFinalZona();
-        } else {
-            System.out.println("Ya has visitado esta carta.");
+        if (actual != null && !actual.estaOcupada()) {
+            actual.marcarOcupada();
+            cartasVisitadas++;
         }
-
-        return resultado;
     }
 
+    // FINAL ZONA
     public void comprobarFinalZona() {
-        if (getSalas()[2][2] != null && getSalas()[2][2].estaOcupada()) {
-            setFinalizada(true);
-            System.out.println();
-            System.out.println("¡Has completado la zona: " + getNombreZona() + "!");
+        Carta ultima = salas[2][2];
+        if (ultima == null || ultima.estaOcupada()) {
+            finalizada = true;
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package UD5.U5a1;
+package org.example.garrido_david_u6a1.model;
 
 public class Dado {
     private int caras = 6;

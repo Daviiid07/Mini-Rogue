@@ -1,0 +1,5 @@
+=== INICIO DE PARTIDA ===
+Zona: Zona 1
+⚔ Combate: Soldado Esqueleto | Vida:4 Atq:2
+  Dado 1 → 6
+  ¡CRÍTICO (6)! Daño acumulado dado: 6 — ¿Relanzas?

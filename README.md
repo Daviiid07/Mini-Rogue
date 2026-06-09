@@ -143,17 +143,16 @@ Cada nivel está compuesto por 2 zonas de 3×3 salas. El jugador se mueve hacia 
 
 ## 🛠️ Posibles mejoras futuras
 
-- Sistema de inventario persistente entre salas
+- Implementación de pociones que alteren los valores de los enemigos y del heroe
+- Posibilidad de elegir entre diferentes heroes al comenzar una partida
 - Más tipos de enemigos, habilidades y eventos
-- Interfaz visual del mapa con estado de cada sala
 - Persistencia de partidas y tabla de puntuaciones
-- Tests unitarios para la lógica de combate y progresión
 
 ---
 
 ## 👨‍💻 Autor
 
-Proyecto desarrollado por **David Garrido** como parte de su formación en **Desarrollo de Aplicaciones Multiplataforma (DAM)**.
+Proyecto desarrollado por **David Garrido** como proyecto final del modulo de **Programación** del grado superior **Desarrollo de Aplicaciones Multiplataforma (DAM)**.
 
 ---
 
